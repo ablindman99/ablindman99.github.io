@@ -4,6 +4,10 @@ description: مرشد تربوي ومدرّب حاسوب للمكفوفين من
 url: https://ali.tawfeeq.dev
 lang: ar
 
+# منع جيتهاب من أخذ عنوان التبويب من أول عنوان في الصفحة
+titles_from_headings:
+  enabled: false
+
 markdown: kramdown
 kramdown:
   input: GFM

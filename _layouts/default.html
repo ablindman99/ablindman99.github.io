@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <title>{% if page.url == "/" %}{{ site.title }}{% else %}{{ page.title }} | {{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
@@ -15,21 +15,44 @@
 <body>
   <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
 
+  {%- comment -%} صفحات الموقع: تظهر القائمة فقط عند وجود صفحة غير الرئيسية {%- endcomment -%}
+  {%- assign has_tutorials = false -%}
+  {%- if site.posts.size > 0 -%}{%- assign has_tutorials = true -%}{%- endif -%}
+  {%- assign has_links = false -%}
+  {%- if site.data.links and site.data.links.size > 0 -%}{%- assign has_links = true -%}{%- endif -%}
+  {%- assign show_menu = false -%}
+  {%- if has_tutorials or has_links -%}{%- assign show_menu = true -%}{%- endif -%}
+
+  {%- if show_menu or page.sections -%}
   <header class="site-head">
     <div class="wrap site-head__inner">
-      <a class="brand" href="{{ '/' | relative_url }}">علي توفيق</a>
-      <nav aria-label="أقسام الموقع">
-        <ul>
-          <li><a href="{{ '/#about' | relative_url }}">نبذة</a></li>
-          <li><a href="{{ '/#journey' | relative_url }}">المسيرة</a></li>
-          <li><a href="{{ '/#skills' | relative_url }}">المهارات</a></li>
-          {% if site.posts.size > 0 %}<li><a href="{{ '/tutorials/' | relative_url }}">الشروحات</a></li>{% endif %}
-          {% if site.data.links and site.data.links.size > 0 %}<li><a href="{{ '/links/' | relative_url }}">روابط مفيدة</a></li>{% endif %}
-          <li><a href="{{ '/#contact' | relative_url }}">التواصل</a></li>
+      {%- if show_menu %}
+      <nav class="site-menu" aria-label="صفحات الموقع">
+        <button type="button" class="site-menu__btn" aria-expanded="false" aria-controls="site-menu-list">القائمة</button>
+        <ul id="site-menu-list" class="site-menu__list" hidden>
+          <li><a href="{{ '/' | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>الرئيسية</a></li>
+          {%- if has_tutorials %}
+          <li><a href="{{ '/tutorials/' | relative_url }}"{% if page.url contains '/tutorials/' %} aria-current="page"{% endif %}>الشروحات</a></li>
+          {%- endif %}
+          {%- if has_links %}
+          <li><a href="{{ '/links/' | relative_url }}"{% if page.url == "/links/" %} aria-current="page"{% endif %}>روابط مفيدة</a></li>
+          {%- endif %}
         </ul>
       </nav>
+      {%- endif %}
+
+      {%- if page.sections %}
+      <nav class="page-sections" aria-label="في هذه الصفحة">
+        <ul>
+          {%- for s in page.sections %}
+          <li><a href="#{{ s.id }}">{{ s.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+      {%- endif %}
     </div>
   </header>
+  {%- endif %}
 
   <main id="main" tabindex="-1">
     {{ content }}
@@ -40,5 +63,29 @@
       <p>© {{ 'now' | date: '%Y' }} علي توفيق</p>
     </div>
   </footer>
+
+  {%- if show_menu %}
+  <script>
+    (function () {
+      var btn = document.querySelector('.site-menu__btn');
+      var list = document.getElementById('site-menu-list');
+      if (!btn || !list) return;
+      function setOpen(open, returnFocus) {
+        btn.setAttribute('aria-expanded', String(open));
+        list.hidden = !open;
+        if (!open && returnFocus) btn.focus();
+      }
+      btn.addEventListener('click', function () {
+        setOpen(btn.getAttribute('aria-expanded') !== 'true');
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false, true);
+      });
+      document.addEventListener('click', function (e) {
+        if (!btn.parentNode.contains(e.target)) setOpen(false);
+      });
+    })();
+  </script>
+  {%- endif %}
 </body>
 </html>

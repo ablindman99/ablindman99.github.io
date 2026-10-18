@@ -1,6 +1,16 @@
 ---
 layout: home
+title: علي توفيق
 heading: علي توفيق
+sections:
+  - id: about
+    title: نبذة
+  - id: journey
+    title: المسيرة
+  - id: skills
+    title: المهارات
+  - id: contact
+    title: التواصل
 motto_lead: اطمئنّ؛
 motto:
   - فعند الله لكلِّ مشكلةٍ مفتاح،
