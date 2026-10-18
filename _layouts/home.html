@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<section class="hero" aria-labelledby="name">
+  <div class="wrap">
+    <h1 id="name" class="hero__name">{{ page.name }}</h1>
+
+    <figure class="motto">
+      <blockquote>
+        <p><span class="motto__lead" style="--i: 0">{{ page.motto_lead }}</span> {% for line in page.motto %}<span style="--i: {{ forloop.index0 }}">{{ line }}</span> {% endfor %}</p>
+      </blockquote>
+    </figure>
+  </div>
+</section>
+
+<div class="wrap content">
+  {{ content }}
+</div>

@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article class="wrap content post">
+  <header class="post__head">
+    <h1>{{ page.title }}</h1>
+    <p class="post__meta">
+      نُشر في <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y/%m/%d' }}</time>
+    </p>
+  </header>
+
+  {{ content }}
+
+  <p class="post__back"><a href="{{ '/tutorials/' | relative_url }}">العودة إلى كل الشروحات</a></p>
+</article>

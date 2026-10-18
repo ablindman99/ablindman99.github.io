@@ -1,0 +1,19 @@
+---
+layout: default
+title: الشروحات
+---
+<div class="wrap content">
+  <h1>الشروحات</h1>
+  {% if site.posts.size > 0 %}
+  <ul class="post-list">
+    {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y/%m/%d' }}</time>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>لم تُنشر شروحات بعد. <a href="{{ '/' | relative_url }}">العودة إلى الصفحة الرئيسية</a></p>
+  {% endif %}
+</div>

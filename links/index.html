@@ -1,0 +1,24 @@
+---
+layout: default
+title: روابط مفيدة
+---
+<div class="wrap content">
+  <h1>روابط مفيدة</h1>
+  {% if site.data.links and site.data.links.size > 0 %}
+    {% for group in site.data.links %}
+    <section class="links-group" aria-labelledby="group-{{ forloop.index }}">
+      <h2 id="group-{{ forloop.index }}">{{ group.group }}</h2>
+      <ul>
+        {% for link in group.links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.note %}<p>{{ link.note }}</p>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  {% else %}
+  <p>لم تُضف روابط بعد. <a href="{{ '/' | relative_url }}">العودة إلى الصفحة الرئيسية</a></p>
+  {% endif %}
+</div>

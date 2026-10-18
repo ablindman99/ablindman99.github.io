@@ -1,0 +1,24 @@
+# إعدادات الموقع العامة
+title: علي توفيق
+description: مرشد تربوي ومدرّب حاسوب للمكفوفين من البصرة.
+url: https://ali.tawfeeq.dev
+lang: ar
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# عنوان كل شرح يكون: ali.tawfeeq.dev/tutorials/اسم-الملف/
+permalink: /tutorials/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
