@@ -1,6 +1,6 @@
 ---
 layout: home
-name: علي توفيق
+heading: علي توفيق
 motto_lead: اطمئنّ؛
 motto:
   - فعند الله لكلِّ مشكلةٍ مفتاح،
