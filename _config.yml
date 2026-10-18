@@ -8,6 +8,10 @@ lang: ar
 titles_from_headings:
   enabled: false
 
+# خريطة الموقع لمحركات البحث: ali.tawfeeq.dev/sitemap.xml
+plugins:
+  - jekyll-sitemap
+
 markdown: kramdown
 kramdown:
   input: GFM
